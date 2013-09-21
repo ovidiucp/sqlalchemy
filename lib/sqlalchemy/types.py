@@ -80,8 +80,10 @@ class TypeEngine(AbstractType):
 
     def compare_values(self, x, y):
         """Compare two values for equality."""
+        def maybeUnicode(s):
+            return (s and type(s) == str and unicode(s, encoding='utf-8')) or s
 
-        return x == y
+        return maybeUnicode(x) == maybeUnicode(y)
 
     def is_mutable(self):
         """Return True if the target Python type is 'mutable'.
@@ -2403,4 +2405,3 @@ _type_map = {
     dt.timedelta : Interval(),
     NoneType: NULLTYPE
 }
-
