@@ -199,8 +199,10 @@ class TypeEngine(AbstractType):
 
     def compare_values(self, x, y):
         """Compare two values for equality."""
+        def maybeUnicode(s):
+            return (s and type(s) == str and unicode(s, encoding='utf-8')) or s
 
-        return x == y
+        return maybeUnicode(x) == maybeUnicode(y)
 
     def get_dbapi_type(self, dbapi):
         """Return the corresponding type object from the underlying DB-API, if
