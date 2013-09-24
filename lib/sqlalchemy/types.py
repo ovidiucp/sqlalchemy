@@ -81,7 +81,10 @@ class TypeEngine(AbstractType):
     def compare_values(self, x, y):
         """Compare two values for equality."""
         def maybeUnicode(s):
-            return (s and type(s) == str and unicode(s, encoding='utf-8')) or s
+            if type(s) == str:
+                return unicode(s, encoding='utf-8')
+            else:
+                return s
 
         return maybeUnicode(x) == maybeUnicode(y)
 
